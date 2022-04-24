@@ -1,0 +1,11 @@
+<h1>Bachelorette Show Page</h1>
+
+
+Bachelorette Name: <%= @bachelorette.name %><br>
+Season Number: <%= @bachelorette.season_number %><br>
+Season Description: <%= @bachelorette.description %><br>
+
+
+<%= link_to "See the Contestants", "/bachelorettes/#{@bachelorette.id}/contestants" %> <br>
+
+Average Age of Contestants: <%= @bachelorette.average_age_of_contestants %><br>

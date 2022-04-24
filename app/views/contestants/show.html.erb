@@ -1,0 +1,15 @@
+<h1>Contestant Show Page</h1>
+
+
+Name: <%= @contestant.name %><br>
+Age: <%= @contestant.age %><br>
+Hometown: <%= @contestant.hometown %><br>
+
+Season: <%= @contestant.bachelorette.season_number %><br>
+Season Description: <%= @contestant.bachelorette.description %><br><br>
+
+Outings: <% @contestant.outings.each do |outing| %>
+<section id="outing-<%= outing.id %>">
+  <%= link_to "#{outing.name}", "/outings/#{outing.id}" %>
+</section>
+<% end %>

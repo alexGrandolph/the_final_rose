@@ -1,13 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe Bachelorette, type: :model do
-  describe 'relationships' do
-    it {should have_many :contestants}
-  end
+RSpec.describe 'Bachelorette Show Page' do
+  
+  describe 'as a visitor' do
+    before do
 
-  describe 'instance methods' do
-
-    it 'returns the age of a bachelorettes contestants' do
       @bach1 = Bachelorette.create!(name: 'Timbo', season_number: 69, description: 'stupid ass show')
       @bach2 = Bachelorette.create!(name: 'JIMBO', season_number: 4, description: 'dumb show')
 
@@ -20,21 +17,30 @@ RSpec.describe Bachelorette, type: :model do
       @contest6 = @bach2.contestants.create!(name: 'sammy sosa', age: 21, hometown: 'steroid city')
       @contest7 = @bach2.contestants.create!(name: 'sammy sosas corked bat', age: 49, hometown: 'corksville')
       @contest8 = @bach2.contestants.create!(name: 'mark ROIDS mcguire', age: 26, hometown: 'hometown #1339C')
-
-      expect(@bach2.average_age_of_contestants).to eq(37.75)
     end 
+      it 'has a bachelorettes attributes and link to its contestants index page' do
+        visit "/bachelorettes/#{@bach2.id}"
+        # save_and_open_page
+        expect(page).to have_content("Bachelorette Name: JIMBO")
+        expect(page).to have_content("Season Number: 4")
+        expect(page).to have_content("Season Description: dumb show")
 
-    it 'returns a unique list of hometowns for a bachelorettes contestants' do 
-      bach3 = Bachelorette.create!(name: 'Timbo', season_number: 69, description: 'stupid ass show')
+        expect(page).to_not have_content("Bachelorette Name: Timbo")
+        expect(page).to_not have_content("Season Number: 69")
+      end 
 
-      cont1 = bach3.contestants.create(name: 'leroy', age: 69, hometown: 'milawaukee')
-      cont2 = bach3.contestants.create(name: 'bob saget', age: 44, hometown: 'cheese town')
-      cont3 = bach3.contestants.create(name: 'ludacris', age: 89, hometown: 'buttsville')
-      cont4 = bach3.contestants.create(name: 'actually 50 cent', age: 69, hometown: 'milawaukee')
-      cont5 = bach3.contestants.create(name: 'elron hubbard', age: 65, hometown: 'milawaukee')
+      it 'has a link to see that bach contestants (index) page' do 
+        visit "/bachelorettes/#{@bach2.id}"
+        click_link "See the Contestants"
+      end 
 
-      expect(bach3.unique_hometowns).to eq(["buttsville", "cheese town", "milawaukee"])
+      it 'has the average age of all contestants' do 
+        visit "/bachelorettes/#{@bach2.id}"
+        # save_and_open_page
+        expect(page).to have_content("Average Age of Contestants: 37.75")
 
-    end 
+      end 
+
+    
   end 
 end

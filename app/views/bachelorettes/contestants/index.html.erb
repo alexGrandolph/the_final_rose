@@ -1,0 +1,17 @@
+<h1>Bachelorette Contestants Index Page</h1>
+
+
+<% @bachelorette.contestants.each do |contestant| %>
+<section id="contestant-<%= contestant.id %>">
+  Name: <%= contestant.name %><br>
+  Age: <%= contestant.age %><br>
+  Hometown: <%= contestant.hometown %><br>
+<%= link_to "View This Contestant", "/contestants/#{contestant.id}" %>
+
+  <br><br>
+</section>
+<% end %>
+
+These Contestants are from these hometowns: <% @bachelorette.unique_hometowns.each do |town| %>
+<a><%= town %>, </a>
+<% end %>
